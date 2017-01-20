@@ -6,7 +6,7 @@ var app         = express();
 var server      = require('http').Server(app);
 var morgan      = require('morgan');
 var path        = require("path");
-var config      = require('./config');
+var config      = require('./app-test-config');
 var api         = require('./rtdb-api')(config, app, server);
 
 // =======================
