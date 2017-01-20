@@ -12,6 +12,12 @@ var rtdb = function (config, app, server) {
     var path        = require("path");
     var fs          = require("fs");
 
+    var dir = __dirname + '/medias';
+    fs.stat(dir, function (err) {
+        if (err && err.message && err.message.indexOf('no such file or directory') > -1)
+            fs.mkdirSync(dir);
+    });
+
     var mysql = require("mysql");
     var jwt = require('jsonwebtoken');
 
