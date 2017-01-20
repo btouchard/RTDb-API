@@ -8,5 +8,6 @@ module.exports = {
         user: 'ben',
         password: 'ben',
         database: 'rtdb'
-    }
+    },
+    rootDir: __dirname
 };

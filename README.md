@@ -62,7 +62,8 @@ module.exports = {
         user: 'user',
         password: 'pwd',
         database: 'database'
-    }
+    },
+    rootDir = __dirname // IMPORTANT !!!
 };
 ```
 

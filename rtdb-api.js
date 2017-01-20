@@ -12,7 +12,7 @@ var rtdb = function (config, app, server) {
     var path        = require("path");
     var fs          = require("fs");
 
-    var dir = __dirname + '/medias';
+    var dir = config.rootDir + '/medias';
     fs.stat(dir, function (err) {
         if (err && err.message && err.message.indexOf('no such file or directory') > -1)
             fs.mkdirSync(dir);
@@ -42,7 +42,7 @@ var rtdb = function (config, app, server) {
     // routes ================
     // =======================
     app.get('/rtdb/rtdb-client.js', function(req, res) {
-        // console.log("path", path.join(__dirname+'/client.js'));
+        // console.log("path", path.join(config.rootDir+'/client.js'));
         res.sendFile(path.join(__dirname+'/client.js'));
     });
 
@@ -103,12 +103,12 @@ var rtdb = function (config, app, server) {
 
     router.get('/medias/:table/:filename', function (req, res) {
         var uri = '/medias/' + req.params.table + '/' + req.params.filename;
-        return res.sendFile(path.join(__dirname+uri));
+        return res.sendFile(path.join(config.rootDir+uri));
     });
 
     router.post('/medias/:table/:filename', function (req, res) {
         if (!req.files) return res.status(400).json({success: false, msg: 'No file to process'});
-        var dir = __dirname + '/medias/' + req.params.table;
+        var dir = config.rootDir + '/medias/' + req.params.table;
         fs.stat(dir, function (err, stats) {
             if (err && err.message.indexOf('no such file or directory') > -1)
                 fs.mkdirSync(dir);
@@ -164,18 +164,6 @@ var rtdb = function (config, app, server) {
         });
     });
 
-    function saveFile(table, files) {
-        for (var key in files) {
-            if (!files.hasOwnProperty(key)) continue;
-            var file = files[key];
-            var path = '/medias/'+table+'/' + file.name;
-            file.mv(__dirname + path, function(err) {
-                if (err) throw err;
-            });
-            return path;
-        }
-    }
-
     router.post('/:table', function (req, res) {
         pool.getConnection(function (err, con) {
             if (err) throw 'Error connecting to Db';
@@ -204,10 +192,6 @@ var rtdb = function (config, app, server) {
             var table = req.params.table;
             var id = req.params.id;
             var data = req.body;
-            if (req.files) {
-                data.data = saveFile(table, req.files);
-                data.size = fs.statSync(__dirname + data.data)['size'];
-            }
             var qry;
             if (table == 'user') return res.status(404).json({success: false, msg: 'This table is private'});
             else qry = 'UPDATE ' + table + ' SET ? WHERE id=' + id;

@@ -9,7 +9,6 @@ var api         = require('rtdb-api')(config, app, server);
 var port = process.env.PORT || config.port || 3000;
 app.use(morgan('dev'));
 
-
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname+'/app.html'));
 });

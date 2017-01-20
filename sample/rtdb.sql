@@ -1,3 +1,5 @@
+# noinspection SqlNoDataSourceInspectionForFile
+
 -- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: rtdb
@@ -71,7 +73,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (13,'benjamin@kolapsis.com','benpass',NULL,NULL,'Benjamin','Touchard','2017-01-15 14:44:23','2017-01-15 14:44:23');
+INSERT INTO `user` VALUES (13,'user@domain.com','pwd',NULL,NULL,'User','Test','2017-01-15 14:44:23','2017-01-15 14:44:23');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
