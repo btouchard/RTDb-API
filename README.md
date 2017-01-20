@@ -28,7 +28,13 @@ Create a new nodejs project, add needed dependencies to your package.json:
 ```
 
 ```bash
-npm install rtdb-api
+npm install
+```
+
+Or directly
+
+```bash
+npm install --save rtdb-api
 ```
 
 Server Usage

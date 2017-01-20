@@ -39,3 +39,4 @@ jspm_packages
 .idea
 Supprimerait .idea/
 /medias/
+sample/app-js/node_modules
