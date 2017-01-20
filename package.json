@@ -1,5 +1,6 @@
 {
   "name": "rtdb-api",
+  "version": "1.0.0",
   "description": "RealTime Database",
   "main": "rtdb-api.js",
   "repository": {
