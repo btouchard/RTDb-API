@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">RTDb</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="account_type">com.kolapsis.rtdb_android.account</string>
+    <string name="account_label">RTDb Account</string>
+
+    <string name="provider_category_label">Catégories</string>
+    <string name="provider_category_authority">com.kolapsis.rtdb_android.providers.Category</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Mot de passe (optionel)</string>
+    <string name="action_sign_in">Authentification</string>
+    <string name="action_sign_in_short">Connexion</string>
+    <string name="error_invalid_email">Adresse email invalide</string>
+    <string name="error_invalid_password">Mot de passe trop court</string>
+    <string name="error_incorrect_password">Ce mot de passe est incorrect</string>
+    <string name="error_field_required">Ce champ est requis</string>
+    <string name="permission_contacts">"Permissions sur les Contacts nécessaire pour fournir l\'autocomplétion."</string>
+    <string name="permission_files">"Permissions d\'écriture de fichiers nécessaire."</string>
+
+    <string name="no_account">Aucun compte trouvé</string>
+    <string name="add_account">Ajouter un compte</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- The attributes in this XML file provide configuration information -->
+<!-- for the Account Manager. -->
+
+<!-- android:accountPreferences="@xml/account_box_preferences" -->
+<account-authenticator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accountType="@string/account_type"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/account_label"
+    android:smallIcon="@mipmap/ic_launcher" />
