@@ -1,0 +1,115 @@
+<html>
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/rtdb/rtdb-client.js"></script>
+</head>
+<body>
+<button id="findOne">find one</button>
+<button id="insert">insert</button>
+<button id="update">update</button>
+<button id="remove">remove</button>
+<div id="result"></div>
+<script>
+    var div = document.querySelector('#result');
+    var findOne = document.querySelector('#findOne');
+    var insert = document.querySelector('#insert');
+    var update = document.querySelector('#update');
+    var remove = document.querySelector('#remove');
+    enableUI(false);
+
+    // localStorage.setItem('token', null);
+    var db = new RTDb();
+    var repo = db.get('category');
+
+    db.login('benjamin@kolapsis.com', 'benpass')
+        .then(function(success) {
+            if (success) {
+                enableUI(true);
+                initCategories();
+            }
+        });
+
+    function enableUI(enable) {
+        var btns = [findOne, insert, update, remove];
+        for (var i=0; i<btns.length; i++)
+            btns.disabled = !enable;
+    }
+    function initCategories() {
+        repo.on('insert', onInsertCategory)
+            .on('update', onUpdateCategory)
+            .on('delete', onDeleteCategory);
+        repo.find().then(showCategories);
+    }
+
+    function showCategories(data) {
+        div.innerHTML = '';
+        var ul = document.createElement('ul');
+        ul.id = 'categories';
+        div.appendChild(ul);
+        for (var i=0; i<data.length; i++)
+            onInsertCategory(data[i]);
+    }
+
+    function onInsertCategory(data) {
+        var ul = document.querySelector('#categories');
+        var li = document.createElement('li');
+        li.id = 'cat_' + data.id;
+        li.data = data;
+        var imgId = 'cat_'+data.id+'_img';
+        li.innerHTML = data.id + ' - ' + data.title + '<br><img id="'+imgId+'"/>';
+        repo.loadImage(data.data).then(function (result) {
+            var img = document.querySelector('#'+imgId);
+            img.src = result;
+            img.width = 100;
+        }).catch(function (err) {
+            console.log(err);
+        });
+        ul.appendChild(li);
+    }
+    function onUpdateCategory(data) {
+        var id = 'cat_' + data.id;
+        var li = document.querySelector('#'+id);
+        li.data = data;
+        li.innerHTML = data.id + ' - ' + data.title;
+    }
+    function onDeleteCategory(data) {
+        var ul = document.querySelector('#categories');
+        var li = document.querySelector('#cat_' + data.id);
+        if (li) ul.removeChild(li);
+    }
+
+    findOne.addEventListener('click', function (e) {
+        var id = parseInt(prompt('ID ?'));
+        if (isNaN(id)) return;
+        if (repo) repo.findOne(id).then(function (data) {
+            console.log(data);
+        });
+    });
+    insert.addEventListener('click', function (e) {
+        var title = prompt('Title ?');
+        if (title && repo) repo.insert({title: title}, function(err, result) {
+            if (err) throw err;
+            console.log('Api::Inserted', result);
+        });
+    });
+    update.addEventListener('click', function (e) {
+        var id = parseInt(prompt('ID ?'));
+        var li = document.querySelector('#cat_'+id);
+        if (isNaN(id)) return;
+        var title = prompt('Title ?', li ? li.data.title : '');
+        if (id && title && repo) repo.update(id, {title: title}, function(err, result) {
+            if (err) throw err;
+            console.log('Api::Updated', result);
+        });
+    });
+    remove.addEventListener('click', function (e) {
+        var id = parseInt(prompt('ID ?'));
+        if (isNaN(id)) return;
+        if (id && repo) repo.delete(id, function(err, result) {
+            if (err) throw err;
+            console.log('Api::Deleted', result);
+        });
+    });
+</script>
+</body>
+</html>
