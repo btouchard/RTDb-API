@@ -8,10 +8,10 @@
     "url": "git+https://github.com/btouchard/RTDb-API.git"
   },
   "keywords": [
-    "realtime",
-    "database",
-    "mysql",
-    "socket.io"
+    "realtime database",
+    "restful api",
+    "socket.io",
+    "mysql"
   ],
   "author": "Benjamin Touchard <benjamin@kolapsis.com> (http://www.kolapsis.com)",
   "license": "GNUv3",

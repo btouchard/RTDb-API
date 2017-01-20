@@ -20,7 +20,6 @@
     // localStorage.setItem('token', null);
     var db = new RTDb();
     var repo = db.get('category');
-
     db.login('benjamin@kolapsis.com', 'benpass')
         .then(function(success) {
             if (success) {
