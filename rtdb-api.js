@@ -20,7 +20,7 @@ var rtdb = function (config, app, server) {
 
     var mysql = require("mysql");
     var jwt = require('jsonwebtoken');
-
+    
     // =======================
     // configuration =========
     // =======================
